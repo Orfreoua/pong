@@ -4,7 +4,7 @@ function createBall(x, y, radius, dx, dy) {
 }
 
 // Fonction pour déplacer la balle
-function moveBall(ball, canvas, leftPaddle, rightPaddle) {
+function moveBall(ball, canvas, leftPaddle, rightPaddle, updateScores) {
     ball.x += ball.dx;
     ball.y += ball.dy;
 
@@ -13,9 +13,16 @@ function moveBall(ball, canvas, leftPaddle, rightPaddle) {
         ball.dy *= -1;
     }
 
-    // Réinitialise la balle si elle sort du bord droit ou gauche
-    if (ball.x + ball.radius > canvas.width || ball.x - ball.radius < 0) {
+    // Réinitialise la balle si elle sort du bord droit et met à jour le score
+    if (ball.x + ball.radius > canvas.width) {
         resetBall(ball, canvas);
+        updateScores(true); // Le joueur gauche marque un point
+    }
+
+    // Réinitialise la balle si elle sort du bord gauche et met à jour le score
+    if (ball.x - ball.radius < 0) {
+        resetBall(ball, canvas);
+        updateScores(false); // Le joueur droit marque un point
     }
 
     // Vérifie les collisions avec les palettes

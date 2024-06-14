@@ -3,3 +3,10 @@ canvas {
     display: block;
     margin: 0 auto;
 }
+
+#scoreboard {
+    text-align: center;
+    font-size: 24px;
+    color: white;
+    margin-bottom: 10px;
+}
