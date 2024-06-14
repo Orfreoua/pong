@@ -2,9 +2,10 @@
 const canvas = document.getElementById('pong');
 const context = canvas.getContext('2d');
 
-// Récupère les éléments HTML pour les scores
+// Récupère les éléments HTML pour les scores et le bouton de démarrage
 const leftScoreElement = document.getElementById('leftScore');
 const rightScoreElement = document.getElementById('rightScore');
+const startButton = document.getElementById('startButton');
 
 // Initialise les scores
 let leftScore = 0;
@@ -16,9 +17,12 @@ const paddleHeight = 100;
 const ballRadius = 10;
 
 // Crée les objets pour les palettes et la balle
-const leftPaddle = createPaddle(0, canvas.height / 2 - paddleHeight / 2, paddleWidth, paddleHeight);
-const rightPaddle = createPaddle(canvas.width - paddleWidth, canvas.height / 2 - paddleHeight / 2, paddleWidth, paddleHeight);
-const ball = createBall(canvas.width / 2, canvas.height / 2, ballRadius, 4, 4);
+let leftPaddle = createPaddle(0, canvas.height / 2 - paddleHeight / 2, paddleWidth, paddleHeight);
+let rightPaddle = createPaddle(canvas.width - paddleWidth, canvas.height / 2 - paddleHeight / 2, paddleWidth, paddleHeight);
+let ball = createBall(canvas.width / 2, canvas.height / 2, ballRadius, 4, 4);
+
+// Variable pour stocker l'ID de l'intervalle de la boucle de jeu
+let gameLoopIntervalId = null;
 
 // Fonction principale de la boucle de jeu
 function gameLoop() {
@@ -28,14 +32,34 @@ function gameLoop() {
     }
 }
 
-// Appelle la boucle de jeu toutes les 16 ms (~60 fps)
-setInterval(gameLoop, 1000 / 60);
+// Fonction pour démarrer le jeu
+function startGame() {
+    resetGame(); // Réinitialise le jeu
+    if (gameLoopIntervalId === null) {
+        gameLoopIntervalId = setInterval(gameLoop, 1000 / 60); // Démarre la boucle de jeu si elle n'est pas déjà en cours
+    }
+}
+
+// Fonction pour réinitialiser le jeu
+function resetGame() {
+    leftScore = 0;
+    rightScore = 0;
+    leftScoreElement.textContent = leftScore;
+    rightScoreElement.textContent = rightScore;
+
+    leftPaddle = createPaddle(0, canvas.height / 2 - paddleHeight / 2, paddleWidth, paddleHeight);
+    rightPaddle = createPaddle(canvas.width - paddleWidth, canvas.height / 2 - paddleHeight / 2, paddleWidth, paddleHeight);
+    ball = createBall(canvas.width / 2, canvas.height / 2, ballRadius, 4, 4);
+}
 
 // Écoute les événements de touches pressées
 window.addEventListener('keydown', (event) => handleKeyDown(event, leftPaddle, rightPaddle));
 
 // Écoute les événements de touches relâchées
 window.addEventListener('keyup', (event) => handleKeyUp(event, leftPaddle, rightPaddle));
+
+// Ajoute un écouteur d'événement pour le bouton de démarrage
+startButton.addEventListener('click', startGame);
 
 // Fonction pour mettre à jour les scores
 function updateScores(leftPlayerScored) {
@@ -55,6 +79,11 @@ function checkWinner() {
         context.fillStyle = 'white';
         context.font = '36px Arial';
         context.fillText(`${winner} Wins!`, canvas.width / 2 - 100, canvas.height / 2);
+
+        // Arrête la boucle de jeu
+        clearInterval(gameLoopIntervalId);
+        gameLoopIntervalId = null;
+
         return true;
     }
     return false;

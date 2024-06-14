@@ -10,3 +10,14 @@ canvas {
     color: white;
     margin-bottom: 10px;
 }
+
+#startScreen {
+    text-align: center;
+    margin-top: 10px;
+}
+
+#startButton {
+    font-size: 24px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
