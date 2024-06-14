@@ -2,10 +2,11 @@
 const canvas = document.getElementById('pong');
 const context = canvas.getContext('2d');
 
-// Récupère les éléments HTML pour les scores et le bouton de démarrage
+// Récupère les éléments HTML pour les scores et les boutons de démarrage
 const leftScoreElement = document.getElementById('leftScore');
 const rightScoreElement = document.getElementById('rightScore');
-const startButton = document.getElementById('startButton');
+const singlePlayerButton = document.getElementById('singlePlayerButton');
+const multiplayerButton = document.getElementById('multiplayerButton');
 
 // Initialise les scores
 let leftScore = 0;
@@ -32,9 +33,19 @@ function gameLoop() {
     }
 }
 
-// Fonction pour démarrer le jeu
-function startGame() {
+// Fonction pour démarrer le mode Single Player
+function startSinglePlayer() {
     resetGame(); // Réinitialise le jeu
+    rightPaddle.isComputer = true; // Active le mode joueur contre ordinateur pour la palette de droite
+    if (gameLoopIntervalId === null) {
+        gameLoopIntervalId = setInterval(gameLoop, 1000 / 60); // Démarre la boucle de jeu si elle n'est pas déjà en cours
+    }
+}
+
+// Fonction pour démarrer le mode Multijoueur
+function startMultiplayer() {
+    resetGame(); // Réinitialise le jeu
+    rightPaddle.isComputer = false; // Désactive le mode joueur contre ordinateur pour la palette de droite
     if (gameLoopIntervalId === null) {
         gameLoopIntervalId = setInterval(gameLoop, 1000 / 60); // Démarre la boucle de jeu si elle n'est pas déjà en cours
     }
@@ -58,8 +69,11 @@ window.addEventListener('keydown', (event) => handleKeyDown(event, leftPaddle, r
 // Écoute les événements de touches relâchées
 window.addEventListener('keyup', (event) => handleKeyUp(event, leftPaddle, rightPaddle));
 
-// Ajoute un écouteur d'événement pour le bouton de démarrage
-startButton.addEventListener('click', startGame);
+// Ajoute un écouteur d'événement pour le bouton Single Player
+singlePlayerButton.addEventListener('click', startSinglePlayer);
+
+// Ajoute un écouteur d'événement pour le bouton Multijoueur
+multiplayerButton.addEventListener('click', startMultiplayer);
 
 // Fonction pour mettre à jour les scores
 function updateScores(leftPlayerScored) {
