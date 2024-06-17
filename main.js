@@ -1,57 +1,47 @@
-// Récupère le canevas et le contexte de dessin 2D
 const canvas = document.getElementById('pong');
 const context = canvas.getContext('2d');
 
-// Récupère les éléments HTML pour les scores et les boutons de démarrage
 const leftScoreElement = document.getElementById('leftScore');
 const rightScoreElement = document.getElementById('rightScore');
 const singlePlayerButton = document.getElementById('singlePlayerButton');
 const multiplayerButton = document.getElementById('multiplayerButton');
 
-// Initialise les scores
 let leftScore = 0;
 let rightScore = 0;
 
-// Définit les dimensions des palettes et de la balle
 const paddleWidth = 10;
 const paddleHeight = 100;
 const ballRadius = 10;
 
-// Crée les objets pour les palettes et la balle
 let leftPaddle = createPaddle(0, canvas.height / 2 - paddleHeight / 2, paddleWidth, paddleHeight);
 let rightPaddle = createPaddle(canvas.width - paddleWidth, canvas.height / 2 - paddleHeight / 2, paddleWidth, paddleHeight);
 let ball = createBall(canvas.width / 2, canvas.height / 2, ballRadius, 4, 4);
 
-// Variable pour stocker l'ID de l'intervalle de la boucle de jeu
 let gameLoopIntervalId = null;
 
-// Fonction principale de la boucle de jeu
 function gameLoop() {
-    if (!checkWinner()) { // Vérifie s'il n'y a pas de gagnant
+    if (!checkWinner()) {
         updateGame(leftPaddle, rightPaddle, ball, canvas, updateScores);
         renderGame(context, leftPaddle, rightPaddle, ball, canvas, leftScore, rightScore);
     }
 }
 
-// Fonction pour démarrer le mode Single Player
 function startSinglePlayer() {
-    resetGame(); // Réinitialise le jeu
-    rightPaddle.isComputer = true; // Active le mode joueur contre ordinateur pour la palette de droite
+    resetGame();
+    rightPaddle.isComputer = true;
     if (gameLoopIntervalId === null) {
-        gameLoopIntervalId = setInterval(gameLoop, 1000 / 60); // Démarre la boucle de jeu si elle n'est pas déjà en cours
+        gameLoopIntervalId = setInterval(gameLoop, 1000 / 60);
     }
 }
 
-// Fonction pour démarrer le mode Multijoueur
 function startMultiplayer() {
-    resetGame(); // Réinitialise le jeu
-    rightPaddle.isComputer = false; // Désactive le mode joueur contre ordinateur pour la palette de droite
+    resetGame();
+    rightPaddle.isComputer = false;
     if (gameLoopIntervalId === null) {
-        gameLoopIntervalId = setInterval(gameLoop, 1000 / 60); // Démarre la boucle de jeu si elle n'est pas déjà en cours
+        gameLoopIntervalId = setInterval(gameLoop, 1000 / 60);
     }
 }
 
-// Fonction pour réinitialiser le jeu
 function resetGame() {
     leftScore = 0;
     rightScore = 0;
@@ -63,19 +53,12 @@ function resetGame() {
     ball = createBall(canvas.width / 2, canvas.height / 2, ballRadius, 4, 4);
 }
 
-// Écoute les événements de touches pressées
 window.addEventListener('keydown', (event) => handleKeyDown(event, leftPaddle, rightPaddle));
-
-// Écoute les événements de touches relâchées
 window.addEventListener('keyup', (event) => handleKeyUp(event, leftPaddle, rightPaddle));
 
-// Ajoute un écouteur d'événement pour le bouton Single Player
 singlePlayerButton.addEventListener('click', startSinglePlayer);
-
-// Ajoute un écouteur d'événement pour le bouton Multijoueur
 multiplayerButton.addEventListener('click', startMultiplayer);
 
-// Fonction pour mettre à jour les scores
 function updateScores(leftPlayerScored) {
     if (leftPlayerScored) {
         leftScore++;
@@ -86,7 +69,6 @@ function updateScores(leftPlayerScored) {
     rightScoreElement.textContent = rightScore;
 }
 
-// Fonction pour vérifier s'il y a un gagnant
 function checkWinner() {
     if (leftScore >= 21 || rightScore >= 21) {
         const winner = leftScore >= 21 ? 'Left Player' : 'Right Player';
@@ -94,7 +76,6 @@ function checkWinner() {
         context.font = '36px Arial';
         context.fillText(`${winner} Wins!`, canvas.width / 2 - 100, canvas.height / 2);
 
-        // Arrête la boucle de jeu
         clearInterval(gameLoopIntervalId);
         gameLoopIntervalId = null;
 
