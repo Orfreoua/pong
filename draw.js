@@ -17,4 +17,13 @@ function renderGame(context, leftPaddle, rightPaddle, ball, canvas, leftScore, r
     context.font = '24px Arial';
     context.fillText(leftScore, canvas.width / 4, canvas.height / 5);
     context.fillText(rightScore, 3 * canvas.width / 4, canvas.height / 5);
+
+    // Dessine la barre en pointillés au centre
+    context.beginPath();
+    context.setLineDash([5, 15]); // Définit le motif pointillé
+    context.moveTo(canvas.width / 2, 0);
+    context.lineTo(canvas.width / 2, canvas.height);
+    context.strokeStyle = 'white';
+    context.stroke();
+    context.setLineDash([]); // Réinitialise le motif de ligne
 }
