@@ -31,17 +31,18 @@ canvas {
 
 .setting label {
     font-size: 20px;
-    color: black; /* Change to black for better readability */
+    color: black;
     margin-right: 10px;
 }
 
-.setting input[type="range"] {
+.setting input[type="range"],
+.setting input[type="color"] {
     margin-right: 10px;
 }
 
 .setting span {
     font-size: 20px;
-    color: black; /* Change to black for better readability */
+    color: black;
 }
 
 /* Styles for the modal dialog */
