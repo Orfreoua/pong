@@ -3,40 +3,35 @@ function predictBallYPosition(ball, paddleX) {
     let ballDirectionX = ball.dx;
     let ballDirectionY = ball.dy;
 
-    while (ball.x !== paddleX) {
+    while ((ballDirectionX > 0 && ball.x < paddleX) || (ballDirectionX < 0 && ball.x > paddleX)) {
         if (ball.y - ball.radius < 0 || ball.y + ball.radius > canvas.height) {
-            ballDirectionY *= -1; // Collision avec les murs haut et bas
+            ballDirectionY *= -1; // Collision avec les murs supérieur et inférieur
         }
         
-        // Calculer la prochaine position de la balle
         ball.x += ballDirectionX;
         ball.y += ballDirectionY;
-
-        // Arrêter si la balle atteint la position x du paddle
-        if ((ballDirectionX > 0 && ball.x >= paddleX) || (ballDirectionX < 0 && ball.x <= paddleX)) {
-            break;
-        }
     }
 
     predictedY = ball.y;
     return predictedY;
 }
 
-
 function updateAIPaddle(aiPaddle, ball) {
     let paddleCenter = aiPaddle.y + aiPaddle.height / 2;
     let predictedY = predictBallYPosition(Object.assign({}, ball), aiPaddle.x);
 
+    // Ajuster predictedY avec une marge d'erreur basée sur aiDifficulty
+    let errorMargin = (10 - aiDifficulty) * 20; // Plus la marge d'erreur est élevée, plus la difficulté est faible
+    predictedY += (Math.random() * errorMargin - errorMargin / 2);
+
     if (paddleCenter < predictedY - 35) {
-        aiPaddle.dy = aiDifficulty; // Descendre
+        aiPaddle.dy = aiDifficulty; // Descendre avec une vitesse basée sur aiDifficulty
     } else if (paddleCenter > predictedY + 35) {
-        aiPaddle.dy = -aiDifficulty; // Monter
+        aiPaddle.dy = -aiDifficulty; // Monter avec une vitesse basée sur aiDifficulty
     } else {
-        aiPaddle.dy = 0; // Rester
+        aiPaddle.dy = 0; // Rester en place
     }
 }
-
-
 
 function updateGame(leftPaddle, rightPaddle, ball, canvas, updateScores) {
     // Update paddle positions
