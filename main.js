@@ -17,6 +17,25 @@ const saveSettingsButton = document.getElementById('saveSettingsButton');
 const settingsDialog = document.getElementById('settingsDialog');
 const closeSettingsButton = document.querySelector('.close');
 
+const aiDifficultyElement = document.getElementById('aiDifficulty');
+const aiDifficultyDisplay = document.getElementById('aiDifficultyDisplay');
+let aiDifficulty = 5;
+
+aiDifficultyElement.addEventListener('input', () => {
+    aiDifficulty = parseInt(aiDifficultyElement.value, 10);
+    aiDifficultyDisplay.textContent = aiDifficultyElement.value;
+});
+
+saveSettingsButton.addEventListener('click', () => {
+    // Other settings
+    scoreLimit = parseInt(scoreLimitElement.value, 10);
+    ballColor = ballColorElement.value;
+    paddleColor = paddleColorElement.value;
+    backgroundColor = backgroundColorElement.value;
+    aiDifficulty = parseInt(aiDifficultyElement.value, 10);
+    settingsDialog.style.display = 'none';
+});
+
 // Initialize game variables
 let leftPaddle = createPaddle(10, canvas.height / 2 - 50, 10, 100);
 let rightPaddle = createPaddle(canvas.width - 20, canvas.height / 2 - 50, 10, 100);
@@ -39,6 +58,7 @@ window.addEventListener('click', (event) => {
 });
 scoreLimitElement.addEventListener('input', () => scoreLimitDisplay.textContent = scoreLimitElement.value);
 saveSettingsButton.addEventListener('click', () => {
+    // Other settings
     scoreLimit = parseInt(scoreLimitElement.value, 10);
     ballColor = ballColorElement.value;
     paddleColor = paddleColorElement.value;
