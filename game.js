@@ -1,13 +1,42 @@
+function predictBallYPosition(ball, paddleX) {
+    let predictedY = ball.y;
+    let ballDirectionX = ball.dx;
+    let ballDirectionY = ball.dy;
+
+    while (ball.x !== paddleX) {
+        if (ball.y - ball.radius < 0 || ball.y + ball.radius > canvas.height) {
+            ballDirectionY *= -1; // Collision avec les murs haut et bas
+        }
+        
+        // Calculer la prochaine position de la balle
+        ball.x += ballDirectionX;
+        ball.y += ballDirectionY;
+
+        // Arrêter si la balle atteint la position x du paddle
+        if ((ballDirectionX > 0 && ball.x >= paddleX) || (ballDirectionX < 0 && ball.x <= paddleX)) {
+            break;
+        }
+    }
+
+    predictedY = ball.y;
+    return predictedY;
+}
+
+
 function updateAIPaddle(aiPaddle, ball) {
     let paddleCenter = aiPaddle.y + aiPaddle.height / 2;
-    if (paddleCenter < ball.y - 35) {
-        aiPaddle.dy = aiDifficulty; // Move down
-    } else if (paddleCenter > ball.y + 35) {
-        aiPaddle.dy = -aiDifficulty; // Move up
+    let predictedY = predictBallYPosition(Object.assign({}, ball), aiPaddle.x);
+
+    if (paddleCenter < predictedY - 35) {
+        aiPaddle.dy = aiDifficulty; // Descendre
+    } else if (paddleCenter > predictedY + 35) {
+        aiPaddle.dy = -aiDifficulty; // Monter
     } else {
-        aiPaddle.dy = 0; // Stay
+        aiPaddle.dy = 0; // Rester
     }
 }
+
+
 
 function updateGame(leftPaddle, rightPaddle, ball, canvas, updateScores) {
     // Update paddle positions
