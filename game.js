@@ -16,22 +16,29 @@ function predictBallYPosition(ball, paddleX) {
     return predictedY;
 }
 
-function updateAIPaddle(aiPaddle, ball) {
+async function updateAIPaddle(aiPaddle, ball) {
     let paddleCenter = aiPaddle.y + aiPaddle.height / 2;
+    
+    // Calcul de la durée de sommeil basée sur aiDifficulty
+    let sleep = (10 - aiDifficulty) / 9 * 600;
+    
+    // Attendre avant de calculer le déplacement
+    await new Promise(resolve => setTimeout(resolve, sleep));
     let predictedY = predictBallYPosition(Object.assign({}, ball), aiPaddle.x);
 
-    // Ajuster predictedY avec une marge d'erreur basée sur aiDifficulty
-    let errorMargin = (10 - aiDifficulty) * 20; // Plus la marge d'erreur est élevée, plus la difficulté est faible
-    predictedY += (Math.random() * errorMargin - errorMargin / 2);
-
-    if (paddleCenter < predictedY - 35) {
-        aiPaddle.dy = aiDifficulty; // Descendre avec une vitesse basée sur aiDifficulty
-    } else if (paddleCenter > predictedY + 35) {
-        aiPaddle.dy = -aiDifficulty; // Monter avec une vitesse basée sur aiDifficulty
+    // Calculer le déplacement de la raquette
+    if (paddleCenter < predictedY - 40) {
+        aiPaddle.dy = aiDifficulty * 1.0; // Réduire la vitesse de déplacement
+    } else if (paddleCenter > predictedY + 40) {
+        aiPaddle.dy = -aiDifficulty * 1.0; // Réduire la vitesse de déplacement
     } else {
         aiPaddle.dy = 0; // Rester en place
     }
 }
+
+
+
+
 
 function updateGame(leftPaddle, rightPaddle, ball, canvas, updateScores) {
     // Update paddle positions
