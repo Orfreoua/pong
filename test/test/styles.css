@@ -31,13 +31,15 @@ body, html {
 }
 
 .menuButton {
-    margin: 20px 0;
+    margin: 20px 10px; /* Espacement modifié */
     font-size: 1.5em;
     cursor: pointer;
     font-family: 'Trajan Pro', sans-serif; /* Utilisation de Trajan Pro pour les éléments de liste */
     border: 2px solid #ff4500; /* Bordure orange */
     padding: 10px 20px; /* Espacement intérieur */
     display: inline-block; /* Afficher en ligne */
+    background-color: transparent; /* Fond transparent */
+    color: white; /* Texte blanc */
     transition: all 0.3s ease; /* Transition fluide */
 }
 
@@ -47,7 +49,34 @@ body, html {
 }
 
 .hidden {
-    display: none; /* Cacher initialement les boutons */
+    display: none; /* Cacher initialement les éléments */
+}
+
+#levelSelection {
+    margin-top: 20px;
+}
+
+#levelSelection h2 {
+    font-family: 'Trajan Pro', sans-serif; /* Utilisation de Trajan Pro pour le sous-titre */
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+#levelSelection button {
+    font-family: 'Trajan Pro', sans-serif; /* Utilisation de Trajan Pro pour les boutons */
+    font-size: 1.5em; /* Taille de police ajustée */
+    padding: 10px 20px;
+    cursor: pointer;
+    border: 2px solid #ff4500; /* Bordure orange */
+    background-color: transparent; /* Fond transparent */
+    color: white; /* Texte blanc */
+    margin: 10px; /* Espacement modifié */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Transition fluide */
+}
+
+#levelSelection button:hover {
+    background-color: #ff4500; /* Fond orange au survol */
+    color: black; /* Texte noir au survol */
 }
 
 canvas {

@@ -155,6 +155,10 @@ const classicButton = document.getElementById('classicButton');
 const boostedButton = document.getElementById('boostedButton');
 const humanVsComputerButton = document.getElementById('humanVsComputerButton');
 const humanVsHumanButton = document.getElementById('humanVsHumanButton');
+const levelSelection = document.getElementById('levelSelection');
+const easyLevelButton = document.getElementById('easyLevel');
+const mediumLevelButton = document.getElementById('mediumLevel');
+const hardLevelButton = document.getElementById('hardLevel');
 
 // Ajout des écouteurs d'événements aux boutons principaux
 classicButton.addEventListener('click', function() {
@@ -183,15 +187,39 @@ function showSelectionOptions(gameMode) {
 
 // Ajout des écouteurs d'événements aux boutons d'options de sélection
 humanVsComputerButton.addEventListener('click', function() {
-    handleSelection('Human vs Computer');
+    showLevelSelection();
 });
 
 humanVsHumanButton.addEventListener('click', function() {
-    handleSelection('Human vs Human');
+    // Ici vous pouvez mettre le code pour l'action de "Human vs Human" si nécessaire
+    console.log('Human vs Human mode selected.');
 });
 
-// Fonction pour traiter la sélection
-function handleSelection(selection) {
-    // Exemple : Vous pouvez ici effectuer des actions en fonction de la sélection
-    console.log(`Selected ${selection}.`);
+// Fonction pour afficher la sélection de niveau
+function showLevelSelection() {
+    // Masquer les boutons d'options de sélection
+    humanVsComputerButton.style.display = 'none';
+    humanVsHumanButton.style.display = 'none';
+
+    // Afficher la sélection de niveau
+    levelSelection.style.display = 'block';
+
+    // Ajouter les écouteurs d'événements pour chaque niveau
+    easyLevelButton.addEventListener('click', function() {
+        handleLevelSelection('Easy');
+    });
+
+    mediumLevelButton.addEventListener('click', function() {
+        handleLevelSelection('Medium');
+    });
+
+    hardLevelButton.addEventListener('click', function() {
+        handleLevelSelection('Hard');
+    });
+}
+
+// Fonction pour traiter la sélection de niveau
+function handleLevelSelection(level) {
+    // Exemple : Vous pouvez ici effectuer des actions en fonction du niveau sélectionné
+    console.log(`Selected ${level} level.`);
 }
