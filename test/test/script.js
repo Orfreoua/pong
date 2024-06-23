@@ -4,7 +4,7 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 const particlesArray = [];
-const numberOfParticles = 30; // Reduced number of particles
+const numberOfParticles = 50; // Reduced number of particles
 
 // Define color ratios
 const colorRatios = {
@@ -148,3 +148,50 @@ window.addEventListener('resize', function() {
     fireGlowGradient.addColorStop(0.5, 'rgba(255, 140, 0, 0.1)'); // orange
     fireGlowGradient.addColorStop(1, 'rgba(255, 215, 0, 0)'); // yellow end
 });
+
+///////////////////////////////////////////////////////////////////////////////////////////
+// Récupération des éléments du DOM
+const classicButton = document.getElementById('classicButton');
+const boostedButton = document.getElementById('boostedButton');
+const humanVsComputerButton = document.getElementById('humanVsComputerButton');
+const humanVsHumanButton = document.getElementById('humanVsHumanButton');
+
+// Ajout des écouteurs d'événements aux boutons principaux
+classicButton.addEventListener('click', function() {
+    showSelectionOptions('Classic');
+});
+
+boostedButton.addEventListener('click', function() {
+    showSelectionOptions('Boosted');
+});
+
+// Fonction pour afficher les options de sélection
+function showSelectionOptions(gameMode) {
+    // Masquer tous les boutons principaux
+    classicButton.style.display = 'none';
+    boostedButton.style.display = 'none';
+
+    // Afficher les boutons d'options de sélection correspondants
+    if (gameMode === 'Classic') {
+        humanVsComputerButton.style.display = 'inline-block';
+        humanVsHumanButton.style.display = 'inline-block';
+    } else if (gameMode === 'Boosted') {
+        humanVsComputerButton.style.display = 'inline-block';
+        humanVsHumanButton.style.display = 'inline-block';
+    }
+}
+
+// Ajout des écouteurs d'événements aux boutons d'options de sélection
+humanVsComputerButton.addEventListener('click', function() {
+    handleSelection('Human vs Computer');
+});
+
+humanVsHumanButton.addEventListener('click', function() {
+    handleSelection('Human vs Human');
+});
+
+// Fonction pour traiter la sélection
+function handleSelection(selection) {
+    // Exemple : Vous pouvez ici effectuer des actions en fonction de la sélection
+    console.log(`Selected ${selection}.`);
+}

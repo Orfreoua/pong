@@ -20,6 +20,9 @@ body, html {
 #menu h1 {
     font-size: 3em;
     font-family: 'Trajan Pro', sans-serif; /* Utilisation de Trajan Pro pour le titre */
+    text-transform: uppercase; /* Mettre en majuscules */
+    letter-spacing: 0.1em; /* Espacement entre les lettres */
+    margin-bottom: 20px; /* Espacement en bas */
 }
 
 #menu ul {
@@ -27,15 +30,24 @@ body, html {
     padding: 0;
 }
 
-#menu ul li {
+.menuButton {
     margin: 20px 0;
     font-size: 1.5em;
     cursor: pointer;
     font-family: 'Trajan Pro', sans-serif; /* Utilisation de Trajan Pro pour les éléments de liste */
+    border: 2px solid #ff4500; /* Bordure orange */
+    padding: 10px 20px; /* Espacement intérieur */
+    display: inline-block; /* Afficher en ligne */
+    transition: all 0.3s ease; /* Transition fluide */
 }
 
-#menu ul li:hover {
-    color: #ff4500;
+.menuButton:hover {
+    background-color: #ff4500; /* Fond orange au survol */
+    color: black; /* Texte noir au survol */
+}
+
+.hidden {
+    display: none; /* Cacher initialement les boutons */
 }
 
 canvas {
