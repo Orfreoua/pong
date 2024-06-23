@@ -19,6 +19,7 @@ body, html {
 
 #menu h1 {
     font-size: 3em;
+    font-family: 'Trajan Pro', sans-serif; /* Utilisation de Trajan Pro pour le titre */
 }
 
 #menu ul {
@@ -30,6 +31,7 @@ body, html {
     margin: 20px 0;
     font-size: 1.5em;
     cursor: pointer;
+    font-family: 'Trajan Pro', sans-serif; /* Utilisation de Trajan Pro pour les éléments de liste */
 }
 
 #menu ul li:hover {
