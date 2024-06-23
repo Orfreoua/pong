@@ -4,7 +4,7 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 const particlesArray = [];
-const numberOfParticles = 100; // Reduced number of particles
+const numberOfParticles = 30; // Reduced number of particles
 
 // Define color ratios
 const colorRatios = {
@@ -19,6 +19,12 @@ const colors = [
     'rgba(255, 140, 0, 0.7)', // orange
     'rgba(255, 215, 0, 0.6)'  // yellow
 ];
+
+// Fire glow parameters
+const fireGlowGradient = ctx.createRadialGradient(canvas.width / 2, canvas.height, 0, canvas.width / 2, canvas.height, canvas.height * 0.75);
+fireGlowGradient.addColorStop(0, 'rgba(255, 69, 0, 0.4)'); // red-orange start
+fireGlowGradient.addColorStop(0.5, 'rgba(255, 140, 0, 0.2)'); // orange
+fireGlowGradient.addColorStop(1, 'rgba(255, 215, 0, 0)'); // yellow end
 
 class Particle {
     constructor() {
@@ -105,6 +111,11 @@ function init() {
     }
 }
 
+function drawFireGlow() {
+    ctx.fillStyle = fireGlowGradient;
+    ctx.fillRect(0, canvas.height * 0.25, canvas.width, canvas.height * 0.75);
+}
+
 function handleParticles() {
     for (let i = 0; i < particlesArray.length; i++) {
         particlesArray[i].update();
@@ -119,6 +130,7 @@ function handleParticles() {
 
 function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawFireGlow(); // Draw fire glow effect
     handleParticles();
     requestAnimationFrame(animate);
 }
@@ -129,4 +141,10 @@ animate();
 window.addEventListener('resize', function() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
+
+    // Update fire glow gradient
+    fireGlowGradient = ctx.createRadialGradient(canvas.width / 2, canvas.height, 0, canvas.width / 2, canvas.height, canvas.height * 0.75);
+    fireGlowGradient.addColorStop(0, 'rgba(255, 69, 0, 0.4)'); // red-orange start
+    fireGlowGradient.addColorStop(0.5, 'rgba(255, 140, 0, 0.2)'); // orange
+    fireGlowGradient.addColorStop(1, 'rgba(255, 215, 0, 0)'); // yellow end
 });
