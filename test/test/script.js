@@ -4,7 +4,7 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 const particlesArray = [];
-const numberOfParticles = 150;
+const numberOfParticles = 40; // Reduced number of particles
 
 // Color gradients for the fire effect
 const colors = [
@@ -15,17 +15,35 @@ const colors = [
 
 class Particle {
     constructor() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
+        const spawnType = Math.random();
+
+        if (spawnType < 0.33) { // 33% chance from left
+            this.x = 0;
+            this.y = Math.random() * canvas.height;
+            this.speedX = Math.random() * 0.5;
+        } else if (spawnType < 0.66) { // 33% chance from right
+            this.x = canvas.width;
+            this.y = Math.random() * canvas.height;
+            this.speedX = Math.random() * -0.5;
+        } else { // 33% chance from bottom
+            this.x = Math.random() * canvas.width;
+            this.y = canvas.height;
+            this.speedX = (Math.random() - 0.5) * 2; // Random horizontal speed
+        }
+
         this.size = Math.random() * 5 + 1;
-        this.speedX = (Math.random() - 0.5) * 1;
-        this.speedY = Math.random() * -2 - 1; // Always moving upwards
+        this.speedY = Math.random() * -0.4 - 0.05; // Slightly increased vertical speed
         this.color = colors[Math.floor(Math.random() * colors.length)];
     }
     update() {
         this.x += this.speedX;
         this.y += this.speedY;
-        if (this.size > 0.2) this.size -= 0.1;
+        if (this.size > 0.1) this.size -= 0.005; // Significantly reduced size reduction
+
+        // Ensure some particles have a chance to reach the top
+        if (Math.random() < 0.05) { // 5% chance
+            this.speedY = Math.random() * -1 - 0.1; // Faster upwards speed
+        }
     }
     draw() {
         ctx.fillStyle = this.color;
@@ -48,7 +66,7 @@ function handleParticles() {
     for (let i = 0; i < particlesArray.length; i++) {
         particlesArray[i].update();
         particlesArray[i].draw();
-        if (particlesArray[i].size <= 0.2) {
+        if (particlesArray[i].size <= 0.1) {
             particlesArray.splice(i, 1);
             i--;
             particlesArray.push(new Particle());
