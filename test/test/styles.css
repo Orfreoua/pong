@@ -5,6 +5,21 @@ body, html {
     height: 100%;
     width: 100%;
     background: black;
+    position: relative;
+}
+
+.playButton {
+    position: absolute;
+    top: 10px;
+    right: 10px; /* Positionné en haut à droite */
+    font-size: 12px; /* Taille de police réduite */
+    padding: 5px 10px; /* Espacement interne */
+    cursor: pointer;
+    border: none;
+    background-color: #333;
+    color: white;
+    border-radius: 5px;
+    z-index: 100;
 }
 
 #menu {
@@ -19,10 +34,10 @@ body, html {
 
 #menu h1 {
     font-size: 3em;
-    font-family: 'Trajan Pro', sans-serif; /* Utilisation de Trajan Pro pour le titre */
-    text-transform: uppercase; /* Mettre en majuscules */
-    letter-spacing: 0.1em; /* Espacement entre les lettres */
-    margin-bottom: 20px; /* Espacement en bas */
+    font-family: 'Trajan Pro', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 20px;
 }
 
 #menu ul {
@@ -31,25 +46,25 @@ body, html {
 }
 
 .menuButton {
-    margin: 20px 10px; /* Espacement modifié */
+    margin: 20px 10px;
     font-size: 1.5em;
     cursor: pointer;
-    font-family: 'Trajan Pro', sans-serif; /* Utilisation de Trajan Pro pour les éléments de liste */
-    border: 2px solid #ff4500; /* Bordure orange */
-    padding: 10px 20px; /* Espacement intérieur */
-    display: inline-block; /* Afficher en ligne */
-    background-color: transparent; /* Fond transparent */
-    color: white; /* Texte blanc */
-    transition: all 0.3s ease; /* Transition fluide */
+    font-family: 'Trajan Pro', sans-serif;
+    border: 2px solid #ff4500;
+    padding: 10px 20px;
+    display: inline-block;
+    background-color: transparent;
+    color: white;
+    transition: all 0.3s ease;
 }
 
 .menuButton:hover {
-    background-color: #ff4500; /* Fond orange au survol */
-    color: black; /* Texte noir au survol */
+    background-color: #ff4500;
+    color: black;
 }
 
 .hidden {
-    display: none; /* Cacher initialement les éléments */
+    display: none;
 }
 
 #levelSelection {
@@ -57,26 +72,26 @@ body, html {
 }
 
 #levelSelection h2 {
-    font-family: 'Trajan Pro', sans-serif; /* Utilisation de Trajan Pro pour le sous-titre */
+    font-family: 'Trajan Pro', sans-serif;
     font-size: 1.5em;
     margin-bottom: 10px;
 }
 
 #levelSelection button {
-    font-family: 'Trajan Pro', sans-serif; /* Utilisation de Trajan Pro pour les boutons */
-    font-size: 1.5em; /* Taille de police ajustée */
+    font-family: 'Trajan Pro', sans-serif;
+    font-size: 1.5em;
     padding: 10px 20px;
     cursor: pointer;
-    border: 2px solid #ff4500; /* Bordure orange */
-    background-color: transparent; /* Fond transparent */
-    color: white; /* Texte blanc */
-    margin: 10px; /* Espacement modifié */
-    transition: background-color 0.3s ease, color 0.3s ease; /* Transition fluide */
+    border: 2px solid #ff4500;
+    background-color: transparent;
+    color: white;
+    margin: 10px;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 #levelSelection button:hover {
-    background-color: #ff4500; /* Fond orange au survol */
-    color: black; /* Texte noir au survol */
+    background-color: #ff4500;
+    color: black;
 }
 
 canvas {

@@ -21,7 +21,7 @@ const colors = [
 ];
 
 // Fire glow parameters
-const fireGlowGradient = ctx.createRadialGradient(canvas.width / 2, canvas.height * 0.95, 0, canvas.width / 2, canvas.height * 0.95, canvas.height * 0.5);
+let fireGlowGradient = ctx.createRadialGradient(canvas.width / 2, canvas.height * 0.95, 0, canvas.width / 2, canvas.height * 0.95, canvas.height * 0.5);
 fireGlowGradient.addColorStop(0, 'rgba(255, 69, 0, 0.15)'); // red-orange start
 fireGlowGradient.addColorStop(0.5, 'rgba(255, 140, 0, 0.1)'); // orange
 fireGlowGradient.addColorStop(1, 'rgba(255, 215, 0, 0)'); // yellow end
@@ -150,6 +150,37 @@ window.addEventListener('resize', function() {
 });
 
 ///////////////////////////////////////////////////////////////////////////////////////////
+
+
+//musique
+document.addEventListener('DOMContentLoaded', function() {
+    const playButton = document.getElementById('playButton');
+    const audio = new Audio('dotamain.mp3');
+    let isPlaying = false; // Variable pour suivre l'état de la lecture audio
+
+    playButton.addEventListener('click', function() {
+        if (!isPlaying) {
+            audio.play().then(() => {
+                console.log('La musique est en train de jouer');
+                isPlaying = true; // Met à jour l'état de lecture
+                playButton.textContent = '🔇'; // Change le texte du bouton
+            }).catch(error => {
+                console.error('Erreur de lecture audio :', error);
+            });
+        } else {
+            audio.pause(); // Met en pause la musique
+            isPlaying = false; // Met à jour l'état de lecture
+            playButton.textContent = '🔈'; // Change le texte du bouton
+        }
+    });
+});
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////
+
 // Récupération des éléments du DOM
 const classicButton = document.getElementById('classicButton');
 const boostedButton = document.getElementById('boostedButton');
