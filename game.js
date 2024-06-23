@@ -95,7 +95,7 @@ function checkWinner(scoreLimit, leftScore, rightScore, gameLoopIntervalId) {
     if (leftScore >= scoreLimit || rightScore >= scoreLimit) {
         clearInterval(gameLoopIntervalId);
         gameLoopIntervalId = null;
-        alert(leftScore >= scoreLimit ? "Le joueur de gauche gagne!" : "Le joueur de droite gagne!");
+        if (leftScore >= scoreLimit)
         return true;
     }
     return false;

@@ -98,6 +98,7 @@ function startGameLoop() {
         updateGame(leftPaddle, rightPaddle, ball, canvas, (leftPlayerScored) => {
             updateScores(leftPlayerScored);
             if (checkWinner(scoreLimit, leftScore, rightScore, gameLoopIntervalId)) {
+                alert(leftScore >= scoreLimit ? "Le joueur de gauche gagne!" : "Le joueur de droite gagne!");
                 return;
             }
         });
