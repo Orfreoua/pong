@@ -4,7 +4,7 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 const particlesArray = [];
-const numberOfParticles = 40; // Reduced number of particles
+const numberOfParticles = 100; // Reduced number of particles
 
 // Color gradients for the fire effect
 const colors = [
@@ -32,12 +32,36 @@ class Particle {
         }
 
         this.size = Math.random() * 5 + 1;
+        this.baseSize = this.size; // Store base size for scintillation effect
         this.speedY = Math.random() * -0.4 - 0.05; // Slightly increased vertical speed
         this.color = colors[Math.floor(Math.random() * colors.length)];
+        this.opacity = Math.random() * 0.5 + 0.5; // Random opacity between 0.5 and 1
+
+        // Randomly set chaotic behavior (10% chance)
+        this.chaotic = Math.random() < 0.1;
+        if (this.chaotic) {
+            this.speedX = (Math.random() - 0.5) * 4; // Higher random horizontal speed
+            this.speedY = Math.random() * -2 - 0.1; // Higher random vertical speed
+        }
     }
     update() {
         this.x += this.speedX;
         this.y += this.speedY;
+
+        // Scintillation effect
+        if (!this.chaotic) {
+            if (this.direction === 'up') {
+                this.size += 0.05;
+            } else {
+                this.size -= 0.05;
+            }
+
+            // Reverse direction when size reaches base size or out of bounds
+            if (this.size >= this.baseSize + 1 || this.size <= this.baseSize - 1) {
+                this.direction = this.direction === 'up' ? 'down' : 'up';
+            }
+        }
+
         if (this.size > 0.1) this.size -= 0.005; // Significantly reduced size reduction
 
         // Ensure some particles have a chance to reach the top
@@ -46,6 +70,8 @@ class Particle {
         }
     }
     draw() {
+        ctx.save();
+        ctx.globalAlpha = this.opacity;
         ctx.fillStyle = this.color;
         ctx.shadowColor = 'rgba(0, 0, 0, 0.5)';
         ctx.shadowBlur = 10;
@@ -53,6 +79,7 @@ class Particle {
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.closePath();
         ctx.fill();
+        ctx.restore();
     }
 }
 
