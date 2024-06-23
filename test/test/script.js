@@ -6,6 +6,13 @@ canvas.height = window.innerHeight;
 const particlesArray = [];
 const numberOfParticles = 100; // Reduced number of particles
 
+// Define color ratios
+const colorRatios = {
+    red: 0.45,
+    orange: 0.45,
+    yellow: 0.1
+};
+
 // Color gradients for the fire effect
 const colors = [
     'rgba(255, 69, 0, 0.8)', // red-orange
@@ -15,6 +22,16 @@ const colors = [
 
 class Particle {
     constructor() {
+        const colorChance = Math.random();
+
+        if (colorChance < colorRatios.red) {
+            this.color = colors[0]; // Red
+        } else if (colorChance < colorRatios.red + colorRatios.orange) {
+            this.color = colors[1]; // Orange
+        } else {
+            this.color = colors[2]; // Yellow
+        }
+
         const spawnType = Math.random();
 
         if (spawnType < 0.33) { // 33% chance from left
@@ -34,7 +51,6 @@ class Particle {
         this.size = Math.random() * 5 + 1;
         this.baseSize = this.size; // Store base size for scintillation effect
         this.speedY = Math.random() * -0.4 - 0.05; // Slightly increased vertical speed
-        this.color = colors[Math.floor(Math.random() * colors.length)];
         this.opacity = Math.random() * 0.5 + 0.5; // Random opacity between 0.5 and 1
 
         // Randomly set chaotic behavior (10% chance)
