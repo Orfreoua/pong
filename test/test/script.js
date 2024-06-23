@@ -15,15 +15,15 @@ const colorRatios = {
 
 // Color gradients for the fire effect
 const colors = [
-    'rgba(255, 69, 0, 0.8)', // red-orange
-    'rgba(255, 140, 0, 0.7)', // orange
-    'rgba(255, 215, 0, 0.6)'  // yellow
+    'rgba(255, 69, 0, 0.6)', // red-orange
+    'rgba(255, 140, 0, 0.4)', // orange
+    'rgba(255, 215, 0, 0.2)'  // yellow
 ];
 
 // Fire glow parameters
-const fireGlowGradient = ctx.createRadialGradient(canvas.width / 2, canvas.height, 0, canvas.width / 2, canvas.height, canvas.height * 0.75);
-fireGlowGradient.addColorStop(0, 'rgba(255, 69, 0, 0.4)'); // red-orange start
-fireGlowGradient.addColorStop(0.5, 'rgba(255, 140, 0, 0.2)'); // orange
+const fireGlowGradient = ctx.createRadialGradient(canvas.width / 2, canvas.height * 0.95, 0, canvas.width / 2, canvas.height * 0.95, canvas.height * 0.5);
+fireGlowGradient.addColorStop(0, 'rgba(255, 69, 0, 0.15)'); // red-orange start
+fireGlowGradient.addColorStop(0.5, 'rgba(255, 140, 0, 0.1)'); // orange
 fireGlowGradient.addColorStop(1, 'rgba(255, 215, 0, 0)'); // yellow end
 
 class Particle {
@@ -113,7 +113,7 @@ function init() {
 
 function drawFireGlow() {
     ctx.fillStyle = fireGlowGradient;
-    ctx.fillRect(0, canvas.height * 0.25, canvas.width, canvas.height * 0.75);
+    ctx.fillRect(0, canvas.height * 0.5, canvas.width, canvas.height * 0.5);
 }
 
 function handleParticles() {
@@ -143,8 +143,8 @@ window.addEventListener('resize', function() {
     canvas.height = window.innerHeight;
 
     // Update fire glow gradient
-    fireGlowGradient = ctx.createRadialGradient(canvas.width / 2, canvas.height, 0, canvas.width / 2, canvas.height, canvas.height * 0.75);
-    fireGlowGradient.addColorStop(0, 'rgba(255, 69, 0, 0.4)'); // red-orange start
-    fireGlowGradient.addColorStop(0.5, 'rgba(255, 140, 0, 0.2)'); // orange
+    fireGlowGradient = ctx.createRadialGradient(canvas.width / 2, canvas.height * 0.95, 0, canvas.width / 2, canvas.height * 0.95, canvas.height * 0.5);
+    fireGlowGradient.addColorStop(0, 'rgba(255, 69, 0, 0.15)'); // red-orange start
+    fireGlowGradient.addColorStop(0.5, 'rgba(255, 140, 0, 0.1)'); // orange
     fireGlowGradient.addColorStop(1, 'rgba(255, 215, 0, 0)'); // yellow end
 });
