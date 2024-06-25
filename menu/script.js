@@ -1,3 +1,5 @@
+
+
 const canvas = document.getElementById('background');
 const ctx = canvas.getContext('2d');
 canvas.width = window.innerWidth;
@@ -183,6 +185,7 @@ document.getElementById('exitButton').addEventListener('click', function() {
 });
 
 document.getElementById('yesButton').addEventListener('click', function() {
+    window.location.reload();
     const confirmationDiv = document.getElementById('confirmation');
     confirmationDiv.style.display = 'none';
     gameCanvas.style.display = 'none';
@@ -321,3 +324,20 @@ function initGameAgainstComputer(level, gameMode) {
 
     updateGame();
 }
+
+// Fonction pour mettre à jour les positions des paddles en fonction de la taille du canvas
+function updatePaddlePositions() {
+    paddle1.y = (canvas.height - paddleHeight) / 2;
+    paddle2.y = (canvas.height - paddleHeight) / 2;
+    paddle2.x = canvas.width - 30 - paddleWidth;
+}
+
+// Écouter l'événement de redimensionnement de la fenêtre
+window.addEventListener('resize', () => {
+    // Mettre à jour la taille du canvas
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    // Mettre à jour les positions des paddles
+    updatePaddlePositions();
+});
