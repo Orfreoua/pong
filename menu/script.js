@@ -175,9 +175,24 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+//////Bouton X//////////////////////////////////////////
 
+document.getElementById('exitButton').addEventListener('click', function() {
+    const confirmationDiv = document.getElementById('confirmation');
+    confirmationDiv.style.display = 'flex';
+});
 
+document.getElementById('yesButton').addEventListener('click', function() {
+    const confirmationDiv = document.getElementById('confirmation');
+    confirmationDiv.style.display = 'none';
+    gameCanvas.style.display = 'none';
+    document.getElementById('menu').style.display = 'flex';
+});
 
+document.getElementById('noButton').addEventListener('click', function() {
+    const confirmationDiv = document.getElementById('confirmation');
+    confirmationDiv.style.display = 'none';
+});
 
 //////////////////////////////////////////////////////////////////////////////////////////
 
@@ -207,13 +222,8 @@ function showSelectionOptions(gameMode) {
     boostedButton.style.display = 'none';
 
     // Afficher les boutons d'options de sélection correspondants
-    if (gameMode === 'Classic') {
-        humanVsComputerButton.style.display = 'inline-block';
-        humanVsHumanButton.style.display = 'inline-block';
-    } else if (gameMode === 'Boosted') {
-        humanVsComputerButton.style.display = 'inline-block';
-        humanVsHumanButton.style.display = 'inline-block';
-    }
+    humanVsComputerButton.style.display = 'inline-block';
+    humanVsHumanButton.style.display = 'inline-block';
 }
 
 // Ajout des écouteurs d'événements aux boutons d'options de sélection
@@ -222,7 +232,7 @@ humanVsComputerButton.addEventListener('click', function() {
 });
 
 humanVsHumanButton.addEventListener('click', function() {
-    // Ici vous pouvez mettre le code pour l'action de "Human vs Human" si nécessaire
+    startGame('Human', 'Normal'); // Démarrer le jeu immédiatement pour Human vs Human
     console.log('Human vs Human mode selected.');
 });
 
@@ -234,23 +244,80 @@ function showLevelSelection() {
 
     // Afficher la sélection de niveau
     levelSelection.style.display = 'block';
-
-    // Ajouter les écouteurs d'événements pour chaque niveau
-    easyLevelButton.addEventListener('click', function() {
-        handleLevelSelection('Easy');
-    });
-
-    mediumLevelButton.addEventListener('click', function() {
-        handleLevelSelection('Medium');
-    });
-
-    hardLevelButton.addEventListener('click', function() {
-        handleLevelSelection('Hard');
-    });
 }
+
+// Ajouter les écouteurs d'événements pour chaque niveau
+easyLevelButton.addEventListener('click', function() {
+    handleLevelSelection('Easy');
+});
+
+mediumLevelButton.addEventListener('click', function() {
+    handleLevelSelection('Medium');
+});
+
+hardLevelButton.addEventListener('click', function() {
+    handleLevelSelection('Hard');
+});
 
 // Fonction pour traiter la sélection de niveau
 function handleLevelSelection(level) {
-    // Exemple : Vous pouvez ici effectuer des actions en fonction du niveau sélectionné
     console.log(`Selected ${level} level.`);
+    startGame('Computer', level); // Démarrer le jeu avec l'adversaire de type Computer et le niveau sélectionné
+}
+
+// Fonction pour démarrer le jeu
+function startGame(opponentType, level, gameMode) {
+    // Masquer le menu
+    document.getElementById('menu').style.display = 'none';
+    
+    if (opponentType === 'Computer') {
+        // Initialiser le jeu contre l'ordinateur avec le niveau choisi
+        initGameAgainstComputer(level, gameMode);
+    } else {
+        // Initialiser le jeu multijoueur
+        initMultiplayerGame(gameMode);
+    }
+}
+
+// Initialiser le jeu multijoueur
+function initMultiplayerGame(gameMode) {
+    if (gameMode === 'Boosted') {
+        // Préparer les modifications pour le mode Boosted
+    }
+    update();
+}
+
+// Initialiser le jeu contre l'ordinateur
+function initGameAgainstComputer(level, gameMode) {
+    paddle1.x = -100; // Masquer le paddle de l'ordinateur
+
+    if (gameMode === 'Boosted') {
+        // Préparer les modifications pour le mode Boosted
+    }
+    
+    // Logique de l'ordinateur
+    function moveComputerPaddle() {
+        if (ball.y < paddle2.y + paddle2.height / 2) {
+            paddle2.dy = -6;
+        } else {
+            paddle2.dy = 6;
+        }
+
+        paddle2.y += paddle2.dy;
+
+        if (paddle2.y < 0) {
+            paddle2.y = 0;
+        } else if (paddle2.y + paddle2.height > canvas.height) {
+            paddle2.y = canvas.height - paddle2.height;
+        }
+    }
+
+    function updateGame() {
+        moveComputerPaddle();
+        moveBall();
+        draw();
+        requestAnimationFrame(updateGame);
+    }
+
+    updateGame();
 }

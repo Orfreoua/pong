@@ -16,6 +16,7 @@
 </head>
 <body>
     <button id="playButton" class="playButton">🔈</button>
+    <button id="exitButton" class="exitButton">❌</button>
 
     <div id="menu">
         <h1 style="font-family: 'Trajan Pro', sans-serif;">Pong</h1>
@@ -32,7 +33,13 @@
             <button id="hardLevel" class="menuButton">Hard</button>
         </div>
     </div>
+    <div id="confirmation" class="hidden">
+        <p>Are you sure you want to exit?</p>
+        <button id="yesButton" class="menuButton">YES</button>
+        <button id="noButton" class="menuButton">NO</button>
+    </div>
     <canvas id="background"></canvas>
     <script src="script.js"></script>
+    <script src="pong.js"></script>
 </body>
 </html>
