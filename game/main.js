@@ -89,8 +89,12 @@ function setupGame() {
 
 function startMultiplayer() {
     resetGame();
-    rightPaddle.isComputer = false;
-    startGameLoop();
+    if (currentGameMode === 1 && humanVsHuman === 1) {
+        rightPaddle.isComputer = false;
+        startGameLoop();
+    }
+    else
+        console.log('Cannot start multiplayer game.');
 }
 
 function resetGame() {

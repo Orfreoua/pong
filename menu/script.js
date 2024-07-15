@@ -8,8 +8,12 @@ const easyLevelButton = document.getElementById('easyLevel');
 const mediumLevelButton = document.getElementById('mediumLevel');
 const hardLevelButton = document.getElementById('hardLevel');
 
+let currentGameMode;
+let humanVsHuman;
+
 // Ajout des écouteurs d'événements aux boutons principaux
 classicButton.addEventListener('click', function() {
+    currentGameMode = 1;
     showSelectionOptions('Classic');
 });
 
@@ -34,8 +38,10 @@ humanVsComputerButton.addEventListener('click', function() {
 });
 
 humanVsHumanButton.addEventListener('click', function() {
-    startGame('Human', 'Normal'); // Démarrer le jeu immédiatement pour Human vs Human
+    humanVsHuman = 1;
     console.log('Human vs Human mode selected.');
+    document.getElementById('menu').style.display = 'none';//->ici je cache
+    startMultiplayer();
 });
 
 // Fonction pour afficher la sélection de niveau
@@ -77,7 +83,7 @@ function startGame(opponentType, level, gameMode) {
         //initGameAgainstComputer(level, gameMode);
     } else {
         // Initialiser le jeu multijoueur
-       // initMultiplayerGame(gameMode);
+       //initMultiplayerGame(gameMode);
     }
 }
 
