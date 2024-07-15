@@ -1,0 +1,23 @@
+/*body {
+    margin: 0;
+    overflow: hidden;
+    background-color: black;
+}
+
+canvas {
+    display: block;
+}*/
+
+body {
+    margin: 0;
+    background-color: black;
+    overflow: auto; /* Autorise le défilement de la page si nécessaire */
+}
+
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: block;
+    z-index: -1; /* Place le canvas en arrière-plan pour laisser le texte défiler par-dessus */
+}
